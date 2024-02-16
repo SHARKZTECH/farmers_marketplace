@@ -94,7 +94,7 @@ export default function Welcome({ auth }) {
                     {/* Link to view all products */}
                     <div className="mt-8 text-center">
                         <Link
-                            href="/products"
+                            href={route("products.index")}
                             className="text-blue-500 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
                         >
                             View All Products

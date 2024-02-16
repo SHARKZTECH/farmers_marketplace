@@ -1,7 +1,7 @@
 import HomeLayout from '@/Layouts/HomeLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import React from 'react';
-import HOME from "@/images/home.png"
+import HOME from "@/images/home.png";
 
 const Index = ({ auth }) => {
   // Placeholder data for categories (you can replace this with actual categories)
@@ -27,16 +27,16 @@ const Index = ({ auth }) => {
     { id: 3, name: "Chicken Breast", price: "$5.99", category: "Meat & Poultry", image: HOME },
     { id: 3, name: "Chicken Breast", price: "$5.99", category: "Meat & Poultry", image: HOME },
     { id: 3, name: "Chicken Breast", price: "$5.99", category: "Meat & Poultry", image: HOME },
-    { id: 3, name: "Chicken Breast", price: "$5.99", category: "Meat & Poultry", image: HOME },
+    // Add more products as needed
   ];
 
   return (
     <>
       <Head title="Products" />
       <HomeLayout auth={auth}>
-        <div className="flex">
+        <div className="flex h-screen overflow-y-hidden	">
           {/* Filters section */}
-          <div className="w-1/4 p-4 border-r">
+          <div className="w-1/4 p-4 border-r  h-full">
             <h2 className="text-lg font-semibold mb-4">Filters</h2>
             {/* Search filter */}
             <div className="mb-4">
@@ -58,17 +58,21 @@ const Index = ({ auth }) => {
             {/* Clear filters button */}
             <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Clear Filters</button>
           </div>
+
+
           {/* Products list section */}
-          <div className="w-3/4 p-4">
+          <div className="w-3/4 p-4 ml-1/4 overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">All Products</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {products.map(product => (
-                <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
-                  <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2" />
-                  <h3 className="text-lg font-semibold">{product.name}</h3>
-                  <p className="text-gray-600">{product.price}</p>
-                  <p className="text-gray-500">{product.category}</p>
-                </div>
+                <Link key={product.id} href={`/product/${product.id}`}>
+                  <div className="bg-white p-4 rounded-lg shadow-md cursor-pointer">
+                    <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2" />
+                    <h3 className="text-lg font-semibold">{product.name}</h3>
+                    <p className="text-gray-600">{product.price}</p>
+                    <p className="text-gray-500">{product.category}</p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>

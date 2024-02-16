@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, Head } from '@inertiajs/react';
-import HOME from "@/images/home.png"; // Assuming you have a placeholder image
+import HOME from "@/images/home.png"; // Placeholder image
 
 export default function Welcome({ auth }) {
-     // Major categories for Famars Marketplace
-     const categories = [
+    // Major categories for Famars Marketplace
+    const categories = [
         { id: 1, name: "Fruits & Vegetables" },
         { id: 2, name: "Dairy & Eggs" },
         { id: 3, name: "Meat & Poultry" },
@@ -12,6 +12,15 @@ export default function Welcome({ auth }) {
         { id: 5, name: "Herbs & Spices" },
         // Add more categories as needed
     ];
+
+    // Placeholder for featured products 
+    const featuredProducts = [
+        { id: 1, name: "Apple", price: "$2.99", image: HOME },
+        { id: 2, name: "Eggs", price: "$1.99", image: HOME },
+        { id: 3, name: "Chicken Breast", price: "$5.99", image: HOME },
+        { id: 3, name: "Chicken Breast", price: "$5.99", image: HOME },
+    ];
+
     return (
         <>
             <Head title="Welcome" />
@@ -66,6 +75,30 @@ export default function Welcome({ auth }) {
                                 {category.name}
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Featured products section */}
+                    <div className="mt-8">
+                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Featured Products</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {featuredProducts.map(product => (
+                                <div key={product.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                                    <img className="object-cover w-full h-48" src={product.image} alt={product.name} />
+                                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{product.name}</h3>
+                                    <p className="text-gray-600 dark:text-gray-300">{product.price}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Link to view all products */}
+                    <div className="mt-8 text-center">
+                        <Link
+                            href="/products"
+                            className="text-blue-500 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                            View All Products
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Head } from '@inertiajs/react';
 import HOME from "@/images/home.png"; // Placeholder image
+import HomeLayout from '@/Layouts/HomeLayout';
 
 export default function Welcome({ auth }) {
     // Major categories for Famars Marketplace
@@ -24,34 +25,7 @@ export default function Welcome({ auth }) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="relative flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
-                <div className="absolute top-0 right-0 p-6 text-end">
-                    {auth.user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                        >
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <>
-                            <Link
-                                href={route('login')}
-                                className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                            >
-                                Log in
-                            </Link>
-
-                            <Link
-                                href={route('register')}
-                                className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                            >
-                                Register
-                            </Link>
-                        </>
-                    )}
-                </div>
-
+            <HomeLayout auth={auth}>
                 <div className='mt-12 w-full mx-auto p-6 lg:p-8'>
                     <div className="relative rounded-lg overflow-hidden shadow-lg">
                         <img className="object-cover w-full h-[500px]" src={HOME} alt="Home" />
@@ -101,7 +75,8 @@ export default function Welcome({ auth }) {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </HomeLayout>      
+
         </>
     );
 }

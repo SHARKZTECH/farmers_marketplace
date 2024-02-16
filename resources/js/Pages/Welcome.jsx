@@ -3,6 +3,15 @@ import { Link, Head } from '@inertiajs/react';
 import HOME from "@/images/home.png"; // Assuming you have a placeholder image
 
 export default function Welcome({ auth }) {
+     // Major categories for Famars Marketplace
+     const categories = [
+        { id: 1, name: "Fruits & Vegetables" },
+        { id: 2, name: "Dairy & Eggs" },
+        { id: 3, name: "Meat & Poultry" },
+        { id: 4, name: "Grains & Pulses" },
+        { id: 5, name: "Herbs & Spices" },
+        // Add more categories as needed
+    ];
     return (
         <>
             <Head title="Welcome" />
@@ -34,7 +43,7 @@ export default function Welcome({ auth }) {
                     )}
                 </div>
 
-                <div className='w-full mx-auto p-6 lg:p-8'>
+                <div className='mt-12 w-full mx-auto p-6 lg:p-8'>
                     <div className="relative rounded-lg overflow-hidden shadow-lg">
                         <img className="object-cover w-full h-[500px]" src={HOME} alt="Home" />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-50"></div>
@@ -43,7 +52,20 @@ export default function Welcome({ auth }) {
                         </div>
                     </div>
                     <div className="mt-8 text-center text-gray-800 dark:text-gray-200">
-                        <p className="text-lg">Explore a wide range of products and start buying and selling today!</p>
+                        <p className="text-lg">Explore a wide range of farm-fresh products and start buying and selling today!</p>
+                    </div>
+
+                    {/* Categories section */}
+                    <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {categories.map(category => (
+                            <Link
+                                key={category.id}
+                                href={`/category/${category.id}`}
+                                className="block p-4 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition duration-300"
+                            >
+                                {category.name}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>

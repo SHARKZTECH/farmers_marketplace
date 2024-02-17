@@ -1,5 +1,5 @@
 import HomeLayout from '@/Layouts/HomeLayout';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import React, { useState } from 'react';
 
 const Checkout = ({ auth }) => {
@@ -25,6 +25,8 @@ const Checkout = ({ auth }) => {
     console.log(formData);
     console.log(paymentMethod);
     // Redirect to next step in checkout process
+
+    router.visit("/orders/create")
   };
 
   return (

@@ -1,8 +1,10 @@
 import HomeLayout from '@/Layouts/HomeLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 
 const PlaceOrder = ({ auth }) => {
+  const { errors } = usePage().props;
+
   const [cart, setCart] = useState([]);
 
   // Function to calculate the total price of the items in the cart
@@ -15,6 +17,32 @@ const PlaceOrder = ({ auth }) => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
   }, []);
+
+  const placeOrder = () => {
+    // Send a request to your backend API to store the order
+    // Example:
+    // fetch('/api/orders', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ cart }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    // .then(response => {
+    //   if (response.ok) {
+    //     // Order successfully placed, redirect to confirmation page
+    //     router.push('/order/confirmation');
+    //   } else {
+    //     // Handle error response
+    //   }
+    // })
+    // .catch(error => {
+    //   // Handle fetch error
+    // });
+
+    // For now, just log a message
+    console.log("Order placed!");
+  };
 
   return (
     <>
@@ -97,7 +125,7 @@ const PlaceOrder = ({ auth }) => {
                 <span>Total:</span>
                 <span>${calculateTotalPrice()}</span>
               </div>
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Place Order</button>
+              <button onClick={placeOrder} className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Place Order</button>
             </div>
           </div>
         </div>

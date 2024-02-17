@@ -8,6 +8,9 @@ const HomeLayout = ({ auth, children }) => {
 
   return (
     <div className="relative flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
+
+        <Link href='/' className="text-2xl font-semibold ml-2 mt-2">Farmer's Marketplace</Link>
+
       <div className="absolute top-0 right-0 p-6 text-end flex items-center">
 
         {/* Cart icon with link to cart page */}
@@ -43,7 +46,7 @@ const HomeLayout = ({ auth, children }) => {
           </>
         )}
       </div>
-      <main>{children}</main>
+      <main className='mt-16'>{children}</main>
     </div>
   );
 };

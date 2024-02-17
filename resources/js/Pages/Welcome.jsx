@@ -1,20 +1,25 @@
-import React from 'react';
-import { Link, Head } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Link, Head, usePage } from '@inertiajs/react';
 import HOME from "@/images/home.png"; // Placeholder image
 import HomeLayout from '@/Layouts/HomeLayout';
 
-export default function Welcome({ auth,featuredProducts }) {
-    // Major categories for Famars Marketplace
+export default function Welcome({ auth, featuredProducts }) {
+    const { url } = usePage();
+    const [activeCategory, setActiveCategory] = useState(null);
+
     const categories = [
         { id: 1, name: "Fruits & Vegetables" },
         { id: 2, name: "Dairy & Eggs" },
         { id: 3, name: "Meat & Poultry" },
         { id: 4, name: "Grains & Pulses" },
         { id: 5, name: "Herbs & Spices" },
-        // Add more categories as needed
     ];
 
-  
+    const handleCategoryClick = (categoryId) => {
+        setActiveCategory(categoryId);
+    };
+
+    const filteredProducts = activeCategory ? featuredProducts.filter(product => product.category_id === activeCategory) : featuredProducts;
 
     return (
         <>
@@ -32,36 +37,33 @@ export default function Welcome({ auth,featuredProducts }) {
                         <p className="text-lg">Explore a wide range of farm-fresh products and start buying and selling today!</p>
                     </div>
 
-                    {/* Categories section */}
                     <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {categories.map(category => (
-                            <Link
+                            <div
                                 key={category.id}
-                                href={`/category/${category.id}`}
-                                className="block p-4 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition duration-300"
+                                className={`block p-4 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition duration-300 ${activeCategory === category.id ? 'bg-blue-500 text-white' : ''}`}
+                                onClick={() => handleCategoryClick(category.id)}
                             >
                                 {category.name}
-                            </Link>
+                            </div>
                         ))}
                     </div>
 
-                    {/* Featured products section */}
                     <div className="mt-8">
                         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Featured Products</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {featuredProducts.map(product => (
+                            {filteredProducts.map(product => (
                                 <Link key={product.id} href={`/products/${product.id}`}>
-                                <div  className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                                    <img className="object-cover w-full h-48" src={product.image} alt={product.name} />
-                                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{product.name}</h3>
-                                    <p className="text-gray-600 dark:text-gray-300">{product.price}</p>
-                                </div>
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                                        <img className="object-cover w-full h-48" src={product.image} alt={product.name} />
+                                        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{product.name}</h3>
+                                        <p className="text-gray-600 dark:text-gray-300">{product.price}</p>
+                                    </div>
                                 </Link>
                             ))}
                         </div>
                     </div>
 
-                    {/* Link to view all products */}
                     <div className="mt-8 text-center">
                         <Link
                             href={route("productslist")}
@@ -71,8 +73,7 @@ export default function Welcome({ auth,featuredProducts }) {
                         </Link>
                     </div>
                 </div>
-            </HomeLayout>      
-
+            </HomeLayout>
         </>
     );
 }

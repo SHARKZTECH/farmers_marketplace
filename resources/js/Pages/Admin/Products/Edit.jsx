@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 
 const Edit = ({ auth, product }) => {
   // Initialize useForm hook
@@ -27,7 +27,9 @@ const Edit = ({ auth, product }) => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(route('products.update', product.id), data);
+    // put(route('products.update', product.id), data);
+    router.post(`/admin/products/${product.id}`, { _method: 'put',...data }); 
+
   };
 
   return (

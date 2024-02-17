@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AdminProductsController extends Controller
@@ -90,7 +91,37 @@ class AdminProductsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'category' => 'required|string',
+            'description' => 'required|string',
+            'quantity' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Allow nullable image field
+        ]);
+    
+        // Find the product by ID
+        $product = Product::findOrFail($id);
+    
+        // Delete previous image if a new one is provided
+        if ($request->hasFile('image')) {
+            Storage::delete($product->image); // Delete previous image
+            $imageName = $request->file('image')->store('public/images');
+            $product->image = $imageName;
+        }
+
+    
+        // Update product data
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->category = $request->input('category');
+        $product->description = $request->input('description');
+        $product->quantity = $request->input('quantity');
+    
+        // Save the updated product
+        $product->save();
+    
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
     /**

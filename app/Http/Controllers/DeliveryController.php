@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delivery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DeliveryController extends Controller
@@ -28,7 +30,33 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $request->validate([
+            'fullName' => 'required|string',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'country' => 'required|string',
+            'postalCode' => 'required|string',
+            'phoneNumber' => 'required|string',
+        ]);
+
+        // Create a new delivery instance
+        $delivery = new Delivery();
+
+        // Populate the delivery instance with the validated data
+        $delivery->fullName = $request->input('fullName');
+        $delivery->address = $request->input('address');
+        $delivery->city = $request->input('city');
+        $delivery->country = $request->input('country');
+        $delivery->postalCode = $request->input('postalCode');
+        $delivery->phoneNumber = $request->input('phoneNumber');
+
+        // Associate the delivery with the authenticated user
+        $user = Auth::user();
+        $user->delivery()->save($delivery);
+
+        // Optionally, you can also return a response indicating success
+        return response()->json(['message' => 'Delivery information stored successfully'], 200);
     }
 
     /**

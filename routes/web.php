@@ -6,6 +6,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/products', AdminProductsController::class);
     Route::resource('/delivery', DeliveryController::class);
     Route::resource('/orders', OrderController::class);
+    Route::resource('/users', UsersController::class);
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class UsersController extends Controller
@@ -65,7 +66,26 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Retrieve the user record from the database
+        $user = User::findOrFail($id);
+    
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($user->id), // Make sure the email is unique, except for the current user
+            ],
+            'role' => 'required|in:user,admin,farmer', // Validate role field
+        ]);
+    
+        // Update the user record with the new data
+        $user->update($validatedData);
+    
+        // Return a response indicating the success of the update operation
+        return redirect()->back()->with('success', 'User updated successfully.');
     }
 
     /**

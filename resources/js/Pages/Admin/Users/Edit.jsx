@@ -4,23 +4,18 @@ import { Head, useForm } from '@inertiajs/react';
 
 const Edit = ({ auth, user, errors }) => {
   // Initialize useForm hook
-  const { data, setData, put } = useForm({
+  const { data, setData, put,processing } = useForm({
     name: user.name,
     email: user.email,
     role: user.role,
   });
 
-  // State to hold form submission status
-  const [submitting, setSubmitting] = useState(false);
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
 
-    put(route('users.update', user.id), data).then(() => {
-      setSubmitting(false);
-    });
+    put(route('users.update', user.id), data);  
   };
 
   return (
@@ -90,10 +85,10 @@ const Edit = ({ auth, user, errors }) => {
           <div>
             <button
               type="submit"
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-              disabled={submitting}
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={processing}
             >
-              {submitting ? 'Submitting...' : 'Update User'}
+              {processing ? 'Submitting...' : 'Update User'}
             </button>
           </div>
         </form>

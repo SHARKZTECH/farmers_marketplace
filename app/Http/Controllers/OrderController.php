@@ -79,7 +79,7 @@ class OrderController extends Controller
     public function show(string $id)
     {
         // Fetch the order details with order items and delivery information
-        $order = Order::with('items', 'user.delivery')->findOrFail($id);
+        $order = Order::with('items','items.product','user.delivery')->findOrFail($id);
 
         // Pass the order data to the view
         return Inertia::render("Admin/Orders/Show", [

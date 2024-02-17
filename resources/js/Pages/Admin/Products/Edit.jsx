@@ -13,6 +13,15 @@ const Edit = ({ auth, product }) => {
     quantity: product.quantity,
   });
 
+  const categories = [
+    { id: 1, name: "Fruits & Vegetables" },
+    { id: 2, name: "Dairy & Eggs" },
+    { id: 3, name: "Meat & Poultry" },
+    { id: 4, name: "Grains & Pulses" },
+    { id: 5, name: "Herbs & Spices" },
+];
+
+
 
 
   // Handle form submission
@@ -60,7 +69,7 @@ const Edit = ({ auth, product }) => {
                 {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
               </div>
               {/* Category */}
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                   Category
                 </label>
@@ -72,6 +81,23 @@ const Edit = ({ auth, product }) => {
                   onChange={(e) => setData('category', e.target.value)}
                 />
                 {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
+              </div> */}
+              <div className="mb-4">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                  Category
+                </label>
+              <select
+                id="category"
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                value={data.category}
+                onChange={(e) => setData('category', e.target.value)}
+                >
+                <option value={data.category}>{data.category}</option>
+                {categories.map((category)=>(
+                  <option key={categories.id} value={category.name}>{category.name}</option>
+                ))}
+              </select>
+              {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
               </div>
               {/* Image */}
               <div className="mb-4">

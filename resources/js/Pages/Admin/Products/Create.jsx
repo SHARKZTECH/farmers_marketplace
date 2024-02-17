@@ -89,7 +89,7 @@ const Create = ({ auth }) => {
                 >
                 <option value="">Select Category</option>
                 {categories.map((category)=>(
-                  <option value={category.name}>{category.name}</option>
+                  <option key={categories.id} value={category.name}>{category.name}</option>
                 ))}
               </select>
               {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}

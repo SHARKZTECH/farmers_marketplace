@@ -14,7 +14,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        // Fetch all orders from the database
+        $orders = Order::all();
+        // Pass the orders data to the view
+        return Inertia::render("Admin/Orders/Index", [
+            'orders' => $orders,
+        ]);
     }
 
     /**

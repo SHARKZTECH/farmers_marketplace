@@ -45,10 +45,10 @@ const PlaceOrder = ({ auth }) => {
 
 
     // Send a POST request to your backend API to store the order using Inertia.post
-    router.post('orders/store', orderData, {
+    router.post('/orders', orderData, {
       onSuccess: () => {
         // Order successfully placed, navigate to confirmation page
-        router.visit('/orders/confirmation');
+        // router.visit('/orders/confirmation');
       },
       onError: (errors) => {
         // Handle any errors returned by the backend

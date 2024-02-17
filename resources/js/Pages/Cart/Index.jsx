@@ -137,7 +137,7 @@ const Index = ({ auth }) => {
                 <span>Total:</span>
                 <span>${calculateTotalPrice()}</span>
               </div>
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Checkout</button>
+              <Link href={route("delivery.create")} className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Checkout</Link>
             </div>
           </div>
         </div>

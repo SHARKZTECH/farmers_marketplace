@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -39,6 +40,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('admin/products', AdminProductsController::class);
+    Route::resource('/delivery', DeliveryController::class);
 });
 
 

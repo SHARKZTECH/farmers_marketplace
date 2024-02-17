@@ -22,7 +22,13 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Delivery/Checkout");
+        $user = Auth::user();
+        $deliveryInfo = $user->delivery; // Assuming the delivery information is stored in a relationship called 'delivery'
+    
+        return Inertia::render("Delivery/Checkout", [
+            'deliveryInfo' => $deliveryInfo,
+        ]);
+    
     }
 
     /**

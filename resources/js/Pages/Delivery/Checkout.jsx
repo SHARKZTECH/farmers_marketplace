@@ -2,14 +2,14 @@ import HomeLayout from '@/Layouts/HomeLayout';
 import { Head, router, useForm } from '@inertiajs/react';
 import React from 'react';
 
-const Checkout = ({ auth }) => {
+const Checkout = ({ auth,deliveryInfo }) => {
   const { data, setData, errors, post } = useForm({
-    fullName: '',
-    address: '',
-    city: '',
-    country: '',
-    postalCode: '',
-    phoneNumber: '',
+    fullName: deliveryInfo?.fullName || '',
+    address: deliveryInfo?.address || '',
+    city: deliveryInfo?.city || '',
+    country: deliveryInfo?.country || '',
+    postalCode:deliveryInfo?.postalCode || '',
+    phoneNumber: deliveryInfo?.phoneNumber || '',
     paymentMethod: 'paypal', // Added default payment method
   });
 

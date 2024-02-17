@@ -3,18 +3,7 @@ import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
 import HOME from "@/images/home.png";
 
-const Show = ({ auth }) => {
-  // Placeholder data for product details
-  const product = {
-    id: 1,
-    name: "Apple",
-    price: "$2.99",
-    category: "Fruits & Vegetables",
-    image: HOME,
-    description: "Fresh and juicy apples",
-    // Add more product details as needed
-  };
-
+const Show = ({ auth,product }) => {
   // State for quantity selection
   const [quantity, setQuantity] = useState(1);
 

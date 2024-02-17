@@ -1,47 +1,60 @@
 import HomeLayout from '@/Layouts/HomeLayout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, router, usePage, useRemember } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 
 const PlaceOrder = ({ auth }) => {
-  const { errors } = usePage().props;
-
+  const { errors } = usePage().props;  
   const [cart, setCart] = useState([]);
-
+  
   // Function to calculate the total price of the items in the cart
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + (parseFloat(item.price.replace("$", "")) * item.quantity), 0).toFixed(2);
   };
 
+  const totalPrice=calculateTotalPrice();
+  
   // Retrieve cart data from local storage on component mount
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
   }, []);
 
-  const placeOrder = () => {
-    // Send a request to your backend API to store the order
-    // Example:
-    // fetch('/api/orders', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ cart }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    // .then(response => {
-    //   if (response.ok) {
-    //     // Order successfully placed, redirect to confirmation page
-    //     router.push('/order/confirmation');
-    //   } else {
-    //     // Handle error response
-    //   }
-    // })
-    // .catch(error => {
-    //   // Handle fetch error
-    // });
 
-    // For now, just log a message
-    console.log("Order placed!");
+  const placeOrder = () => {
+    // Extract the relevant data from the cart items
+    const orderItems = cart.map(item => ({
+      product_id: item.id,
+      quantity: item.quantity,
+      price: item.price,
+      image: item.image,
+    }));
+
+    // Construct the order object
+    const orderData = {
+      user_id: auth.user.id, // Assuming auth object contains user information
+      status: 'pending', // Set the initial status as pending
+      payment_method: 'paypal', // Assuming PayPal is the default payment method
+      tax_price: 0, // You may need to calculate tax based on your requirements
+      shipping_price: 0, // You may need to calculate shipping price based on your requirements
+      is_paid: false, // Initially, the order is not paid
+      is_delivered: false, // Initially, the order is not delivered
+      delivered_at: null, // Initially, delivery date is null
+      total_price: totalPrice, // Include the total price of the order
+      orderItems: orderItems, // Include the order items
+    };
+
+
+    // Send a POST request to your backend API to store the order using Inertia.post
+    router.post('orders/store', orderData, {
+      onSuccess: () => {
+        // Order successfully placed, navigate to confirmation page
+        router.visit('/orders/confirmation');
+      },
+      onError: (errors) => {
+        // Handle any errors returned by the backend
+        console.error(errors);
+      }
+    });
   };
 
   return (

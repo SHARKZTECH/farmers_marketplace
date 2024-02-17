@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 const Index = ({ auth, orders }) => {
+    console.log(orders)
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -44,7 +45,7 @@ const Index = ({ auth, orders }) => {
                     {order.created_at}
                   </td>
                   <td className="px-6 py-4">
-                    {order.total}
+                    {order.total_price}
                   </td>
                   <td className="px-6 py-4">
                     {order.isPaid ? 'Paid' : 'Unpaid'}

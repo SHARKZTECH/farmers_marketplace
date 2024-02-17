@@ -3,7 +3,7 @@ import { Link, Head } from '@inertiajs/react';
 import HOME from "@/images/home.png"; // Placeholder image
 import HomeLayout from '@/Layouts/HomeLayout';
 
-export default function Welcome({ auth }) {
+export default function Welcome({ auth,featuredProducts }) {
     // Major categories for Famars Marketplace
     const categories = [
         { id: 1, name: "Fruits & Vegetables" },
@@ -14,19 +14,13 @@ export default function Welcome({ auth }) {
         // Add more categories as needed
     ];
 
-    // Placeholder for featured products 
-    const featuredProducts = [
-        { id: 1, name: "Apple", price: "$2.99", image: HOME },
-        { id: 2, name: "Eggs", price: "$1.99", image: HOME },
-        { id: 3, name: "Chicken Breast", price: "$5.99", image: HOME },
-        { id: 3, name: "Chicken Breast", price: "$5.99", image: HOME },
-    ];
+  
 
     return (
         <>
             <Head title="Welcome" />
             <HomeLayout auth={auth}>
-                <div className='mt-12 w-full mx-auto p-6 lg:p-8'>
+                <div className='mt-4 w-full mx-auto p-6 lg:p-8'>
                     <div className="relative rounded-lg overflow-hidden shadow-lg">
                         <img className="object-cover w-full h-[500px]" src={HOME} alt="Home" />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-50"></div>
@@ -56,11 +50,13 @@ export default function Welcome({ auth }) {
                         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Featured Products</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {featuredProducts.map(product => (
-                                <div key={product.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                                <Link key={product.id} href={`/products/${product.id}`}>
+                                <div  className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
                                     <img className="object-cover w-full h-48" src={product.image} alt={product.name} />
                                     <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{product.name}</h3>
                                     <p className="text-gray-600 dark:text-gray-300">{product.price}</p>
                                 </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

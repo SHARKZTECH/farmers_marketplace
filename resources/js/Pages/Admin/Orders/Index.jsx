@@ -2,7 +2,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 const Index = ({ auth, orders }) => {
-    console.log(orders)
   return (
     <AuthenticatedLayout
       user={auth.user}

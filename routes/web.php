@@ -28,8 +28,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::resource('/products', ProductsController::class);
 Route::resource('/cart', CartController::class);
+
+Route::get('/products', [ProductsController::class,'index'])->name("productslist");
+Route::get('/products/{id}', [ProductsController::class,'show'])->name("products.show");
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

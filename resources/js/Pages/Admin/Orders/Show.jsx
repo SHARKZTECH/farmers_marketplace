@@ -31,17 +31,23 @@ const Show = ({ order, auth }) => {
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-4 mt-4">
-              <h3 className="text-xl font-semibold mb-2">Order Items</h3>
-              <ul>
+            <h3 className="text-xl font-semibold mb-2">Order Items</h3>
+            <ul>
                 {order.items.map(item => (
-                  <li key={item.id}>
-                    {item?.product?.name} - Quantity: {item.quantity} - Price: ${item.price}
-                  </li>
+                <li key={item.id} className="flex items-center justify-between border-b border-gray-200 py-2">
+                    <div className="flex items-center space-x-4">
+                    <img src={item.image} alt={item?.product?.name} className="w-12 h-12 object-cover rounded-md" />
+                    <div>
+                        <p className="font-semibold">{item?.product?.name}</p>
+                        <p className="text-gray-500">Quantity: {item.quantity}</p>
+                        <p className="text-gray-500">Price: ${item.price}</p>
+                    </div>
+                    </div>
+                    <p className="font-semibold">${(parseFloat(item.price.replace("$", "")) * item.quantity).toFixed(2)}</p>
+                </li>
                 ))}
-              </ul>
-            </div>
-
-            
+            </ul>
+            </div>                   
           </div>
 
           {/* Right Column */}
@@ -61,12 +67,17 @@ const Show = ({ order, auth }) => {
               <h3 className="text-xl font-semibold mb-2">Order Summary</h3>
               <p>Total: ${order.total_price}</p>
             </div>
-          </div>
+
+            <div className="mt-4 text-center">
+                <Link href="/orders" className="text-blue-600 hover:underline">Back to Orders</Link>
+            </div>  
+          </div>   
+        
         </div>
 
-        <div className="mt-4 text-center">
+        {/* <div className="mt-4 text-center">
           <Link href="/orders" className="text-blue-600 hover:underline">Back to Orders</Link>
-        </div>
+        </div> */}
       </AuthenticatedLayout>
     </>
   );

@@ -36,7 +36,7 @@ class ProductsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render("Products/Show");
     }
 
     /**

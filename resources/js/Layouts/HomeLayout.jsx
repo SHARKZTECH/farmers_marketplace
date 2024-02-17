@@ -11,7 +11,7 @@ const HomeLayout = ({ auth, children }) => {
       <div className="absolute top-0 right-0 p-6 text-end flex items-center">
 
         {/* Cart icon with link to cart page */}
-        <Link href="/cart" className="relative text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500">
+        <Link href={route("cart.index")} className="relative text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500">
           {/* Total number of items in the cart */}
           <span className="absolute -top-2 text-sm">{totalItemsInCart}</span>
           <FaShoppingCart className="h-6 w-6 mr-2" />

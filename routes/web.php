@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/products', ProductsController::class);
+Route::resource('/cart', CartController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

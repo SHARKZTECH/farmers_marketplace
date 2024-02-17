@@ -1,16 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
-import HOME from "@/images/home.png";
 
-const Index = ({auth}) => {
-  // Placeholder data for products 
-  const products = [
-    { id: 1, name: "Apple", price: "$2.99", category: "Fruits & Vegetables", image: HOME },
-    { id: 2, name: "Eggs", price: "$1.99", category: "Dairy & Eggs", image: HOME },
-    { id: 3, name: "Chicken Breast", price: "$5.99", category: "Meat & Poultry", image: HOME },
-    // Add more products as needed
-  ];
-
+const Index = ({auth,products}) => {
 
   return (
     <AuthenticatedLayout
@@ -49,7 +40,7 @@ const Index = ({auth}) => {
               </tr>
             </thead>
             <tbody>
-              {products.map(product => (
+              {products?.map(product => (
                 <tr key={product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {product.name}

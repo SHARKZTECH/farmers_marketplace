@@ -14,7 +14,12 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        return Inertia::render("Admin/Products/Index");
+        $products = Product::all(); // Retrieve all products
+
+        return Inertia::render("Admin/Products/Index", [
+            'products' => $products, // Pass the products to the view
+        ]);
+    
     }
 
     /**

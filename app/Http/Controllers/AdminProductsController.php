@@ -78,7 +78,11 @@ class AdminProductsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id); // Retrieve the product by ID
+
+        return Inertia::render("Admin/Products/Edit", [
+            'product' => $product, // Pass the product data to the view
+        ]);
     }
 
     /**

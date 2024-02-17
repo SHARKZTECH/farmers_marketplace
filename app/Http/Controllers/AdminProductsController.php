@@ -20,7 +20,7 @@ class AdminProductsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render("Admin/Products/Create");
     }
 
     /**

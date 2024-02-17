@@ -11,12 +11,13 @@ const Index = ({auth}) => {
     // Add more products as needed
   ];
 
+
   return (
     <AuthenticatedLayout
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Products</h2>}
     >
-      <Head title="Dashboard" />
+      <Head title="Products" />
 
       <div className="py-6 mx-6">
         <div className="flex justify-between mb-6">

@@ -4,19 +4,34 @@ import React, { useState } from 'react';
 import HOME from "@/images/home.png";
 
 const Show = ({ auth,product }) => {
-  // State for quantity selection
   const [quantity, setQuantity] = useState(1);
 
-  // Function to handle quantity change
   const handleQuantityChange = (e) => {
     setQuantity(parseInt(e.target.value));
   };
 
-  // Function to add product to cart
   const addToCart = () => {
-    // Implement add to cart functionality here
+    // Get cart data from local storage or initialize it if not present
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the product already exists in the cart
+    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+      // Update the quantity if the product exists in the cart
+      cart[existingProductIndex].quantity += quantity;
+    } else {
+      // Add the product to the cart if it doesn't exist
+      cart.push({ ...product, quantity });
+    }
+
+    // Update the cart data in local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Notify the user that the product has been added to the cart
     alert(`Added ${quantity} ${product.name}(s) to cart`);
   };
+
 
   // Placeholder data for reviews
   const reviews = [

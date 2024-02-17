@@ -51,7 +51,13 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Pass the user data to the view
+        return Inertia::render("Admin/Users/Edit", [
+            'user' => $user,
+        ]);
     }
 
     /**

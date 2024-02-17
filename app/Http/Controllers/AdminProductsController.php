@@ -35,36 +35,38 @@ class AdminProductsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-            'category' => 'required|string',
-            'description' => 'required|string',
-            'quantity' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // validate image file
-        ]);
-    
-        $imageName = $request->file('image')->store('public/images'); // store the image in the storage directory
-    
-        $user = Auth::user(); // Retrieve the authenticated user
+{
+    $request->validate([
+        'name' => 'required|string',
+        'price' => 'required|numeric',
+        'category' => 'required|string',
+        'description' => 'required|string',
+        'quantity' => 'required|integer',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // validate image file
+    ]);
 
-        $product = new Product([
-            'name' => $request->input('name'),
-            'price' => $request->input('price'),
-            'category' => $request->input('category'),
-            'description' => $request->input('description'),
-            'quantity' => $request->input('quantity'),
-            'image' => $imageName,
-            'user_id' => $user->id, // Set the user_id field
-        ]);
+    // Store the image in the storage directory
+    $imageName = $request->file('image')->store('public/images'); 
 
+    // Get the path of the stored image
+    $imagePath = Storage::url($imageName);
 
-    
-        $product->save();
-    
-        return redirect()->route('products.index')->with('success', 'Product added successfully.');
-    }
+    $user = Auth::user(); // Retrieve the authenticated user
+
+    $product = new Product([
+        'name' => $request->input('name'),
+        'price' => $request->input('price'),
+        'category' => $request->input('category'),
+        'description' => $request->input('description'),
+        'quantity' => $request->input('quantity'),
+        'image' => $imagePath, // Store the image URL with the new path
+        'user_id' => $user->id, // Set the user_id field
+    ]);
+
+    $product->save();
+
+    return redirect()->route('products.index')->with('success', 'Product added successfully.');
+}
 
     /**
      * Display the specified resource.
@@ -105,11 +107,14 @@ class AdminProductsController extends Controller
     
         // Delete previous image if a new one is provided
         if ($request->hasFile('image')) {
-            Storage::delete($product->image); // Delete previous image
+            // Delete previous image
+            Storage::delete($product->image); 
+            // Store the new image
             $imageName = $request->file('image')->store('public/images');
-            $product->image = $imageName;
+            // Get the URL of the stored image
+            $imagePath = Storage::url($imageName);
+            $product->image = $imagePath;
         }
-
     
         // Update product data
         $product->name = $request->input('name');

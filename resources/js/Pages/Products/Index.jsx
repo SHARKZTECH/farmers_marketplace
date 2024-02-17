@@ -51,7 +51,7 @@ const Index = ({ auth,products }) => {
               {products?.map(product => (
                 <Link key={product.id} href={`/products/${product.id}`}>
                   <div className="bg-white p-4 rounded-lg shadow-md cursor-pointer">
-                    <img src={"http://127.0.0.1:8000/"+product.image} alt={product.name} className="w-full h-40 object-cover mb-2" />
+                    <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2" />
                     <h3 className="text-lg font-semibold">{product.name}</h3>
                     <p className="text-gray-600">{product.price}</p>
                     <p className="text-gray-500">{product.category}</p>

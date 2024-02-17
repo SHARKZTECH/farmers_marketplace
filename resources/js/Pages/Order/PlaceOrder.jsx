@@ -1,29 +1,20 @@
 import HomeLayout from '@/Layouts/HomeLayout';
-import { Head } from '@inertiajs/react';
-import React from 'react';
+import { Head, Link } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
 
 const PlaceOrder = ({ auth }) => {
-  // Mock data for delivery summary
-  const deliverySummary = {
-    fullName: 'John Doe',
-    address: '123 Main St',
-    city: 'Cityville',
-    country: 'Countryland',
-    postalCode: '12345',
-    phoneNumber: '123-456-7890'
-  };
+  const [cart, setCart] = useState([]);
 
-  // Mock data for order items
-  const orderItems = [
-    { id: 1, name: "Organic Tomatoes", quantity: 2, price: "$3.99/lb", subtotal: "$7.98" },
-    { id: 2, name: "Fresh Eggs (Dozen)", quantity: 1, price: "$2.49", subtotal: "$2.49" },
-    { id: 3, name: "Artisanal Cheese", quantity: 3, price: "$7.99/lb", subtotal: "$23.97" },
-  ];
-
-  // Function to calculate the total price of the order
+  // Function to calculate the total price of the items in the cart
   const calculateTotalPrice = () => {
-    return orderItems.reduce((total, item) => total + parseFloat(item.subtotal.replace("$", "")), 0).toFixed(2);
+    return cart.reduce((total, item) => total + (parseFloat(item.price.replace("$", "")) * item.quantity), 0).toFixed(2);
   };
+
+  // Retrieve cart data from local storage on component mount
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(savedCart);
+  }, []);
 
   return (
     <>
@@ -37,7 +28,55 @@ const PlaceOrder = ({ auth }) => {
               {/* Table for order items */}
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 {/* Table header */}
-                {/* Table body with order items */}
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-16 py-3">
+                      <span className="sr-only">Image</span>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Product
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Qty
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Price
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Total
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cart?.map(item => (
+                    <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td className="p-4">
+                        <img src={item.image} className="w-16 md:w-32 max-w-[50px] max-h-[100px]" alt={item.name} />
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        {item.name}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                        <input 
+                          type="number" 
+                          id={`quantity_${item.id}`} 
+                          className={`bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${item.quantity === 0 ? 'cursor-not-allowed' : ''}`} 
+                          placeholder="1" 
+                          value={item.quantity} 
+                          disabled 
+                        />           
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        {item.price}
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        ${parseFloat(item.price.replace("$", "")) * item.quantity}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
@@ -45,8 +84,6 @@ const PlaceOrder = ({ auth }) => {
           <div className="w-1/3">
             <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
             <div className="bg-white shadow-md sm:rounded-lg p-4">
-              {/* Delivery summary */}
-              {/* Payment option information */}
               <div className="flex justify-between mb-2">
                 <span>Subtotal:</span>
                 <span>${calculateTotalPrice()}</span>

@@ -28,7 +28,7 @@ const CardBody = ({ children }) => {
     );
 };
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth,totalOrders,pendingOrders,completedOrders }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -51,9 +51,9 @@ export default function Dashboard({ auth }) {
                         <Card>
                             <CardHeader title="Orders" />
                             <CardBody>
-                                <p>Total Orders: 10</p>
-                                <p>Pending Orders: 3</p>
-                                <p>Completed Orders: 7</p>
+                                <p>Total Orders: {totalOrders}</p>
+                                <p>Pending Orders: {pendingOrders}</p>
+                                <p>Completed Orders: {completedOrders}</p>
                                 <Link href={route('orders.index')} className="text-blue-500 hover:underline">View All</Link>
                             </CardBody>
                         </Card>

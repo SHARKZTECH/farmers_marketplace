@@ -32,6 +32,9 @@ const Index = ({ auth, users }) => {
                   Email
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Farmer
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Role
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -47,6 +50,9 @@ const Index = ({ auth, users }) => {
                   </th>
                   <td className="px-6 py-4">
                     {user.email}
+                  </td>
+                  <td className="px-6 py-4">
+                    {user?.farmer ? "Farmer" : "User"}
                   </td>
                   <td className="px-6 py-4">
                     {user?.role}

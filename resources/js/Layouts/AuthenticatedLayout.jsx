@@ -8,6 +8,11 @@ import { Link } from '@inertiajs/react';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    const isAdmin=user.role === "admin";
+    const isFarmer=user.role === "farmer";
+
+    console.log(isAdmin || isFarmer)
+
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
@@ -26,11 +31,14 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                             </div>
 
+                            {(isAdmin || isFarmer ) && (
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('products.index')} active={route().current('products.index')}>
                                     Products
                                 </NavLink>
                             </div>
+                            )}
+
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('orders.index')} active={route().current('orders.index')}>
@@ -38,11 +46,14 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                             </div>
 
+                            {isAdmin && (
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('users.index')} active={route().current('users.index')}>
                                     Users
                                 </NavLink>
                             </div>
+                            )}
+
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">

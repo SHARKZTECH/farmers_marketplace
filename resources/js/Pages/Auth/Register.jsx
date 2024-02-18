@@ -5,11 +5,13 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import Checkbox from '@/Components/Checkbox';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        farmer:false,
         password: '',
         password_confirmation: '',
     });
@@ -63,6 +65,17 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="block mt-4">
+                    <label className="flex items-center">
+                        <Checkbox
+                            name="remember"
+                            checked={data.farmer}
+                            onChange={(e) => setData('farmer', e.target.checked)}
+                        />
+                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">I am a famer and want to sell on Farmers Martketplace</span>
+                    </label>
                 </div>
 
                 <div className="mt-4">

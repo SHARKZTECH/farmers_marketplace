@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Delivery::class);
     }
+    // Define the relationship to fetch orders belonging to a user
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

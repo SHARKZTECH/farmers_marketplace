@@ -81,7 +81,7 @@ const Index = ({ auth }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cart?.map(item => (
+                  {cart.length > 0 ? cart?.map(item => (
                     <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="p-4">
                         <img src={item.image} className="w-16 md:w-32 max-w-[50px] max-h-[100px]" alt={item.name} />
@@ -115,7 +115,7 @@ const Index = ({ auth }) => {
                         <button onClick={()=>removeItem(item.id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
                       </td>
                     </tr>
-                  ))}
+                  )): <p className='text-center py-2'>No Items Yet!</p>}
                 </tbody>
               </table>
             </div>

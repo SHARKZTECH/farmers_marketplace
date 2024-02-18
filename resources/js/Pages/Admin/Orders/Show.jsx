@@ -17,12 +17,12 @@ const Show = ({ order, auth }) => {
           <div>
             <div className="bg-white shadow-md rounded-lg p-4">
               <h3 className="text-xl font-semibold mb-2">Delivery Information</h3>
-              <p>Full Name: {order.user.delivery.fullName}</p>
-              <p>Address: {order.user.delivery.address}</p>
-              <p>City: {order.user.delivery.city}</p>
-              <p>Country: {order.user.delivery.country}</p>
-              <p>Postal Code: {order.user.delivery.postalCode}</p>
-              <p>Phone Number: {order.user.delivery.phoneNumber}</p>
+              <p>Full Name: {order.user.delivery?.fullName}</p>
+              <p>Address: {order.user.delivery?.address}</p>
+              <p>City: {order.user.delivery?.city}</p>
+              <p>Country: {order.user.delivery?.country}</p>
+              <p>Postal Code: {order.user.delivery?.postalCode}</p>
+              <p>Phone Number: {order.user.delivery?.phoneNumber}</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-4 mt-4">

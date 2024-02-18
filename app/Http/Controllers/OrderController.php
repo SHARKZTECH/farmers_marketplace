@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -14,8 +15,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // Fetch all orders with user information
-        $orders = Order::with('user')->get();
+        // Check if the current user's role is admin or farmer
+        if (Auth::user()->role === 'admin' || Auth::user()->role === 'farmer') {
+            // Fetch all orders with user information
+            $orders = Order::with('user')->get();
+        } else {
+            // Fetch orders belonging to the current user
+            $orders = Auth::user()->orders()->with('user')->get();
+        }
         
         // Pass the orders data to the view
         return Inertia::render("Admin/Orders/Index", [

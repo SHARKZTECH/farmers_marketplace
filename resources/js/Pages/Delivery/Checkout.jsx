@@ -21,7 +21,7 @@ const Checkout = ({ auth,deliveryInfo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route("delivery.store"),data);
-    router.visit('/orders/create'); // Redirect on successful submission
+    // router.visit('/orders/create'); // Redirect on successful submission
   };
 
   return (

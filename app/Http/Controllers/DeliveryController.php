@@ -61,8 +61,9 @@ class DeliveryController extends Controller
         $user = Auth::user();
         $user->delivery()->save($delivery);
 
-        // Optionally, you can also return a response indicating success
-        return response()->json(['message' => 'Delivery information stored successfully'], 200);
+       // Optionally, you can also return a response indicating success
+        return redirect()->route("orders.create")->with('success', 'Delivery information stored successfully');
+
     }
 
     /**

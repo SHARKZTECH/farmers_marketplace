@@ -15,12 +15,18 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all(); // Retrieve all products
-
+        // Check if the current user is an admin
+        if (Auth::user()->role === 'admin') {
+            // Retrieve all products
+            $products = Product::all();
+        } else {
+            // Retrieve products belonging to the current user
+            $products = Auth::user()->products;
+        }
+    
         return Inertia::render("Admin/Products/Index", [
             'products' => $products, // Pass the products to the view
         ]);
-    
     }
 
     /**

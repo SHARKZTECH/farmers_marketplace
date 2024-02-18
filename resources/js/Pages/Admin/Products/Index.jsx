@@ -40,7 +40,7 @@ const Index = ({auth,products}) => {
               </tr>
             </thead>
             <tbody>
-              {products?.map(product => (
+              {products.length > 0 ? products.map(product => (
                 <tr key={product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {product.name}
@@ -56,7 +56,7 @@ const Index = ({auth,products}) => {
                     <button className="ml-2 font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                   </td>
                 </tr>
-              ))}
+              )): <p className='text-center py-2'>No products yet!</p>}
             </tbody>
           </table>
         </div>

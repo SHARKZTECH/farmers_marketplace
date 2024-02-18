@@ -19,9 +19,10 @@ export default function Welcome({ auth, featuredProducts }) {
         setActiveCategory(categoryId);
     };
 
-    const filteredProducts = activeCategory ? featuredProducts.filter(product => product.category_id === activeCategory) : featuredProducts;
+    const filteredProducts = activeCategory ? featuredProducts.filter(product => product.category === activeCategory.name) : featuredProducts;
 
-    return (
+
+   return (
         <>
             <Head title="Welcome" />
             <HomeLayout auth={auth}>
@@ -41,8 +42,8 @@ export default function Welcome({ auth, featuredProducts }) {
                         {categories.map(category => (
                             <div
                                 key={category.id}
-                                className={`block p-4 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition duration-300 ${activeCategory === category.id ? 'bg-blue-500 text-white' : ''}`}
-                                onClick={() => handleCategoryClick(category.id)}
+                                className={`block p-4 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition duration-300 ${activeCategory?.id === category.id ? 'bg-blue-500 text-white' : ''}`}
+                                onClick={() => handleCategoryClick(category)}
                             >
                                 {category.name}
                             </div>
@@ -50,9 +51,9 @@ export default function Welcome({ auth, featuredProducts }) {
                     </div>
 
                     <div className="mt-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Featured Products</h2>
+                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Featured Products {activeCategory && `(${activeCategory?.name})`}</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {filteredProducts.map(product => (
+                            {filteredProducts.length > 0 ? filteredProducts.map(product => (
                                 <Link key={product.id} href={`/products/${product.id}`}>
                                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
                                         <img className="object-cover w-full h-48" src={product.image} alt={product.name} />
@@ -60,7 +61,7 @@ export default function Welcome({ auth, featuredProducts }) {
                                         <p className="text-gray-600 dark:text-gray-300">{product.price}</p>
                                     </div>
                                 </Link>
-                            ))}
+                            )): <p className='text-center'>No products Available yet!</p>}
                         </div>
                     </div>
 

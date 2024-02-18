@@ -1,10 +1,35 @@
 import { Link } from '@inertiajs/react';
 import { FaShoppingCart } from 'react-icons/fa';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const HomeLayout = ({ auth, children }) => {
-  // Placeholder data for total number of items in the cart
-  const totalItemsInCart = 5; // Replace this with the actual total number of items in the cart
+   // State to store the total number of items in the cart
+   const [totalItemsInCart, setTotalItemsInCart] = useState(0);
+
+   // Function to get the cart count from localStorage
+   const getCartCount = () => {
+     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+     return cartItems.reduce((total, item) => total + item.quantity, 0);
+   };
+ 
+   // Effect to update the cart count when the component mounts
+   useEffect(() => {
+     // Function to handle changes in localStorage
+     const handleStorageChange = () => {
+       const count = getCartCount();
+       setTotalItemsInCart(count);
+     }; 
+     // Add event listener for storage changes
+     window.addEventListener('storage', handleStorageChange); 
+     // Get initial cart count
+     const count = getCartCount();
+     setTotalItemsInCart(count); 
+     // Clean up event listener
+     return () => {
+       window.removeEventListener('storage', handleStorageChange);
+     };
+   }, []);
+
 
   return (
     <div className="relative flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">

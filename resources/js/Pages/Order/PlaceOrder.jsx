@@ -49,6 +49,7 @@ const PlaceOrder = ({ auth }) => {
       onSuccess: () => {
         // Order successfully placed, navigate to confirmation page
         // router.visit('/orders/confirmation');
+        localStorage.removeItem("cart");
       },
       onError: (errors) => {
         // Handle any errors returned by the backend

@@ -133,7 +133,7 @@ const Index = ({ auth }) => {
                 <span>Free</span>
               </div>
               <hr className="border-gray-200 my-2" />
-              <div className="flex justify-between font-semibold">
+              <div className="flex justify-between font-semibold mb-4">
                 <span>Total:</span>
                 <span>${calculateTotalPrice()}</span>
               </div>

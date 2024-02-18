@@ -66,10 +66,11 @@ const Index = ({ auth, products }) => {
             </div>
             {/* Price filter */}
             <div className="mb-4">
+              <div className="text-center mt-2">price:{priceRange}</div>
               <input
                 type="range"
                 min="0"
-                max="100"
+                max="10000"
                 value={priceRange}
                 onChange={e => setPriceRange(Number(e.target.value))}
                 className="w-full"

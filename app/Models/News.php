@@ -12,6 +12,7 @@ class News extends Model
     protected $fillable = [
         'title',
         'content',
+        'user_id',
         'location',
         'demand_supply',
         'contact_information',

@@ -8,7 +8,7 @@ const Show = ({auth}) => {
       <HomeLayout auth={auth}>
 
     <div>
-    <a href="/" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+    <a href="/news" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
     </a>
     <div class="mx-4">
         <div class="bg-gray-50 border border-gray-200 rounded p-4">
@@ -31,7 +31,7 @@ const Show = ({auth}) => {
                         </p>
 
 
-                        <a href="{{ $listing->email }}"
+                        <a href="email"
                             class="block bg-green-600 text-white mt-6 py-2 rounded-xl hover:opacity-80"><i
                                 class="fa-solid fa-envelope"></i>
                             Contact Farmer</a>
@@ -52,7 +52,7 @@ const Show = ({auth}) => {
         class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-green-600 text-white h-24 mt-24 opacity-90 md:justify-center">
         <p class="ml-2">Copyright &copy; 2024, All Rights reserved</p>
 
-        <a href="/listings/create" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">
+        <a href="/news/create" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">
             Post  News
         </a>
     </footer>

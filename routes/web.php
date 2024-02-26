@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,8 @@ Route::resource('/cart', CartController::class);
 
 Route::get('/products', [ProductsController::class,'index'])->name("productslist");
 Route::get('/products/{id}', [ProductsController::class,'show'])->name("products.show");
+
+Route::get('/news', [NewsController::class,'index'])->name("news.index");
 
 Route::get('/dashboard', function () {
     $user = Auth::user();

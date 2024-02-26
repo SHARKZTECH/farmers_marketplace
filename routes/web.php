@@ -43,6 +43,7 @@ Route::get('/products', [ProductsController::class,'index'])->name("productslist
 Route::get('/products/{id}', [ProductsController::class,'show'])->name("products.show");
 
 Route::get('/news', [NewsController::class,'index'])->name("news.index");
+Route::get('/news/{id}', [NewsController::class,'show'])->name("news.show");
 
 Route::get('/dashboard', function () {
     $user = Auth::user();

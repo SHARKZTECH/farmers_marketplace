@@ -36,7 +36,7 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render("News/Show");
     }
 
     /**

@@ -1,10 +1,10 @@
 import HomeLayout from '@/Layouts/HomeLayout'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 
 const Index = ({auth}) => {
   return (
     <div>
-      <Head title="Products" />
+      <Head title="News" />
       <HomeLayout auth={auth}>
 
       {/* <!-- Hero --> */}
@@ -54,7 +54,7 @@ const Index = ({auth}) => {
             <img class="hidden w-48 mr-6 md:block" src="images/no-image.png" alt="" />
             <div>
                 <h3 class="text-2xl">
-                    <a href="#">title</a>
+                    <Link href={route("news.show","id")} >title</Link>
                 </h3>
                 <div class="text-xl font-bold mb-4">Author</div>
 

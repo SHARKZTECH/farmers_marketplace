@@ -1,3 +1,4 @@
+import CheckoutSteps from '@/Components/CheckoutSteps';
 import HomeLayout from '@/Layouts/HomeLayout';
 import { Head, router, useForm } from '@inertiajs/react';
 import React from 'react';
@@ -28,6 +29,7 @@ const Checkout = ({ auth,deliveryInfo }) => {
     <>
       <Head title="Checkout - Delivery Information" />
       <HomeLayout auth={auth}>
+        <CheckoutSteps step1 step2/>
         <div className="container mx-auto p-4 flex justify-between">
           {/* Delivery information form */}
           <div className="w-1/2 pr-4">

@@ -1,3 +1,4 @@
+import CheckoutSteps from '@/Components/CheckoutSteps';
 import HomeLayout from '@/Layouts/HomeLayout';
 import { Head, router, usePage, useRemember } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
@@ -62,6 +63,7 @@ const PlaceOrder = ({ auth }) => {
     <>
       <Head title="Place Order" />
       <HomeLayout auth={auth}>
+        <CheckoutSteps step1 step2 step3/>
         <div className="container mx-auto p-4 flex justify-between">
           {/* Order items */}
           <div className="w-2/3 pr-4">

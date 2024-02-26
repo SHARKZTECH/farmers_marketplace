@@ -132,7 +132,7 @@ const Index = ({ auth }) => {
             <div className="bg-white shadow-md sm:rounded-lg p-4">
               <div className="flex justify-between mb-2">
                 <span>Subtotal:</span>
-                <span>${calculateTotalPrice()}</span>
+                <span>Ksh {calculateTotalPrice()}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span>Shipping:</span>
@@ -141,7 +141,7 @@ const Index = ({ auth }) => {
               <hr className="border-gray-200 my-2" />
               <div className="flex justify-between font-semibold mb-4">
                 <span>Total:</span>
-                <span>${calculateTotalPrice()}</span>
+                <span>Ksh {calculateTotalPrice()}</span>
               </div>
               <Link disabled={cart.length <= 0} 
                href={route("delivery.create")} 

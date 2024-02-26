@@ -116,7 +116,7 @@ const PlaceOrder = ({ auth }) => {
                         {item.price}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        ${parseFloat(item.price.replace("$", "")) * item.quantity}
+                        Ksh {parseFloat(item.price.replace("$", "")) * item.quantity}
                       </td>
                     </tr>
                   ))}
@@ -130,7 +130,7 @@ const PlaceOrder = ({ auth }) => {
             <div className="bg-white shadow-md sm:rounded-lg p-4">
               <div className="flex justify-between mb-2">
                 <span>Subtotal:</span>
-                <span>${calculateTotalPrice()}</span>
+                <span>Ksh {calculateTotalPrice()}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span>Shipping:</span>
@@ -139,7 +139,7 @@ const PlaceOrder = ({ auth }) => {
               <hr className="border-gray-200 my-2" />
               <div className="flex justify-between font-semibold">
                 <span>Total:</span>
-                <span>${calculateTotalPrice()}</span>
+                <span>Ksh {calculateTotalPrice()}</span>
               </div>
               <button onClick={placeOrder} className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Place Order</button>
             </div>

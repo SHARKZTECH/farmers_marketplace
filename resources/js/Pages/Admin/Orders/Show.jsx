@@ -1,6 +1,7 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import PayPalBtn from '@/Components/PayPalBtn';
 
 const Show = ({ order, auth }) => {
     console.log(order)
@@ -40,10 +41,10 @@ const Show = ({ order, auth }) => {
                     <div>
                         <p className="font-semibold">{item?.product?.name}</p>
                         <p className="text-gray-500">Quantity: {item.quantity}</p>
-                        <p className="text-gray-500">Price: ${item.price}</p>
+                        <p className="text-gray-500">Price: Ksh {item.price}</p>
                     </div>
                     </div>
-                    <p className="font-semibold">${(parseFloat(item.price.replace("$", "")) * item.quantity).toFixed(2)}</p>
+                    <p className="font-semibold">Ksh {(parseFloat(item.price.replace("$", "")) * item.quantity).toFixed(2)}</p>
                 </li>
                 ))}
             </ul>
@@ -65,7 +66,8 @@ const Show = ({ order, auth }) => {
 
             <div className="bg-white shadow-md rounded-lg p-4 mt-4">
               <h3 className="text-xl font-semibold mb-2">Order Summary</h3>
-              <p>Total: ${order.total_price}</p>
+              <p className='mb-8'>Total: Ksh {order.total_price}</p>
+              <PayPalBtn amount={order.total_price}/>
             </div>
 
             <div className="mt-4 text-center">

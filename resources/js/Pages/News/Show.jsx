@@ -64,3 +64,5 @@ const Show = ({auth,newsItem}) => {
 }
 
 export default Show
+
+

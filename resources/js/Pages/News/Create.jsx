@@ -1,6 +1,7 @@
 import HomeLayout from '@/Layouts/HomeLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import counties from '@/data/counties.json';
+import Footer from '@/Components/Footer';
 
 const Create = ({ auth }) => {
   const { data, setData, post, errors } = useForm({
@@ -121,14 +122,7 @@ const Create = ({ auth }) => {
         </div>
 
         
-    <footer
-        class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-green-600 text-white h-24 mt-24 opacity-90 md:justify-center">
-        <p class="ml-2">Copyright &copy; 2024, All Rights reserved</p>
-
-        <a href="/news/create" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">
-            Post  News
-        </a>
-    </footer>
+       <Footer/>
       </HomeLayout>
     </div>
   );

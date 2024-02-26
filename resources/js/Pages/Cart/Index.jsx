@@ -2,6 +2,7 @@ import HomeLayout from '@/Layouts/HomeLayout';
 import { Head, Link } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 import FARMERS_MARKET from "@/images/home.png";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const Index = ({ auth }) => {
   const [cart, setCart] = useState([]);
@@ -55,6 +56,11 @@ const Index = ({ auth }) => {
     <>
       <Head title="Farmer's Marketplace" />
       <HomeLayout auth={auth}>
+        <div className="container  mx-auto text-lg font-semibold mb-4">
+          <Link className='flex items-center' href={route("productslist")}>
+          <IoMdArrowRoundBack size={25} /> Continue Shopping
+          </Link>
+        </div>
         <div className="container mx-auto p-4 flex justify-between">
           {/* Marketplace items */}
           <div className="w-2/3 pr-4">
@@ -137,7 +143,10 @@ const Index = ({ auth }) => {
                 <span>Total:</span>
                 <span>${calculateTotalPrice()}</span>
               </div>
-              <Link href={route("delivery.create")} className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">Checkout</Link>
+              <Link disabled={cart.length <= 0} 
+               href={route("delivery.create")} 
+               className={`bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600 ${cart.length <= 0 && 'opacity-50 cursor-not-allowed'}`}
+               >Checkout</Link>
             </div>
           </div>
         </div>

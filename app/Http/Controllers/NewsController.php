@@ -17,7 +17,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return Inertia::render("News/Index");
+        // Fetch all news from the database along with their associated users
+        $news = News::with('user')->get();
+        
+        // Pass the news data to the view
+        return Inertia::render("News/Index", [
+            'news' => $news,
+        ]);
     }
 
     /**
@@ -62,8 +68,15 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        return Inertia::render("News/Show");
-    }
+        // Fetch the specific news item with its associated user from the database based on the provided ID
+        $newsItem = News::with('user')->findOrFail($id);
+
+        // Pass the news item data along with the associated user to the view
+        return Inertia::render("News/Show", [
+            'newsItem' => $newsItem,
+        ]);
+          
+     }
 
     /**
      * Show the form for editing the specified resource.

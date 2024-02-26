@@ -27,13 +27,31 @@ export default function Welcome({ auth, featuredProducts }) {
             <Head title="Welcome" />
             <HomeLayout auth={auth}>
                 <div className='mt-4 w-full mx-auto p-6 lg:p-8'>
-                    <div className="relative rounded-lg overflow-hidden shadow-lg">
-                        <img className="object-cover w-full h-[500px]" src={HOME} alt="Home" />
+
+                    {/* <div className="relative rounded-lg overflow-hidden shadow-lg">
+                        <img className="object-cover w-full h-[500px]" src={"HOME"} alt="Home" />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-50"></div>
                         <div className="absolute inset-0 flex items-center justify-center text-white z-10">
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center">Welcome to Famars Marketplace</h1>
                         </div>
-                    </div>
+                    </div> */}
+
+                    <section class="relative h-[500px] bg-green-600 flex flex-col justify-center align-center text-center space-y-4 mb-4">
+                        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-no-repeat bg-center"
+                        style={{backgroundImage: ""}}>
+                        </div>
+                        <div class="z-10">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center">Welcome to </h1>
+                            <h1 class="mt-4 text-6xl font-bold uppercase text-white">
+                                Farmers<span class="text-black">Markertplace</span>
+                            </h1>                           
+
+                            <p class="text-2xl text-gray-200 font-bold my-4">
+                                Find or Purchase Latest products from our farners
+                            </p>                    
+                        </div>
+                    </section>
+
                     <div className="mt-8 text-center text-gray-800 dark:text-gray-200">
                         <p className="text-lg">Explore a wide range of farm-fresh products and start buying and selling today!</p>
                     </div>

@@ -22,9 +22,11 @@ const Index = ({auth,news}) => {
                 Find or post Latest news above farm products
             </p>
             <div>
-                <a href="register.html"
+                {!auth.user && (
+                <Link href="/news/create"
                     class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">Sign
-                    Up to Post your News</a>
+                    Up to Post your News</Link>
+                )}
             </div>
         </div>
     </section>

@@ -47,7 +47,7 @@ const Index = ({ auth, orders }) => {
                     {order.total_price}
                   </td>
                   <td className="px-6 py-4">
-                    {order.isPaid ? 'Paid' : 'Unpaid'}
+                    {order.is_paid ? 'Paid' : 'Unpaid'}
                   </td>
                   <td className="px-6 py-4">
                     {order.isDelivered ? 'Delivered' : 'Pending'}

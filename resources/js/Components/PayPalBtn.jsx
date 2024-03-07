@@ -1,3 +1,4 @@
+import { router } from "@inertiajs/react";
 import {
     PayPalScriptProvider,
     PayPalButtons,
@@ -7,7 +8,7 @@ import {
 // This value is from the props in the UI
 const style = {"layout":"vertical"};
 
-const ButtonWrapper = ({ showSpinner,amount }) => {
+const ButtonWrapper = ({ id,showSpinner,amount }) => {
     const [{ isPending }] = usePayPalScriptReducer();
 
     const onCreateOrder = (data,actions) => {
@@ -27,6 +28,7 @@ const ButtonWrapper = ({ showSpinner,amount }) => {
         return actions.order.capture().then((details) => {
             const name = details.payer.name.given_name;
             alert(`Transaction completed by ${name}`);
+            router.put(`/orders/${id}`)
         });
     }
 
@@ -45,11 +47,11 @@ const ButtonWrapper = ({ showSpinner,amount }) => {
     );
 }
 
-const PayPalBtn = ({amount}) => {
+const PayPalBtn = ({amount,id}) => {
     return (
         <div style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider options={{ clientId: "AbZDN6soec8-E-qH0B7bt4SaX6L7K_TIUJrxC7nRj6nXW05l4kJE6fLIQAV_50yShhxOom6g6Tx_dgLd", components: "buttons", currency: "USD" }}>
-                <ButtonWrapper showSpinner={false} amount={(Number(amount) / 140).toFixed(2)}/>
+                <ButtonWrapper id={id} showSpinner={false} amount={(Number(amount) / 140).toFixed(2)}/>
             </PayPalScriptProvider>
         </div>
     );

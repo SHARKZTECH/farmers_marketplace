@@ -61,13 +61,15 @@ const Show = ({ order, auth }) => {
 
             <div className="bg-white shadow-md rounded-lg p-4 mt-4">
               <h3 className="text-xl font-semibold mb-2">Payment Status</h3>
-              <p>{order.isPaid ? 'Paid' : 'Not Paid'}</p>
+              <p>{order.is_paid ? 'Paid' : 'Not Paid'}</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-4 mt-4">
               <h3 className="text-xl font-semibold mb-2">Order Summary</h3>
               <p className='mb-8'>Total: Ksh {order.total_price}</p>
-              <PayPalBtn amount={order.total_price}/>
+              {!order.is_paid && (
+                <PayPalBtn amount={order.total_price} id={order.id}/>
+              )}
             </div>
 
             <div className="mt-4 text-center">

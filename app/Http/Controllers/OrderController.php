@@ -107,7 +107,23 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Find the order by its ID
+        $order = Order::findOrFail($id);
+        
+        // Check if the payment was successful (you may need to adjust this condition based on your payment logic)
+        $isPaymentSuccessful = true; // Replace this with your payment success condition
+        
+        if ($isPaymentSuccessful) {
+            // Update the isPaid field to true
+            $order->update(['is_paid' => true]);
+            
+            return redirect()->route('orders.show', ['order' => $order->id]);
+
+        } else {
+            // Handle the case where payment was not successful
+            // You may want to return a different response or perform additional actions
+            return response()->json(['message' => 'Order payment failed'], 400);
+        }
     }
 
     /**

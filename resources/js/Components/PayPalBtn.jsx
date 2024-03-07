@@ -7,50 +7,28 @@ import {
 // This value is from the props in the UI
 const style = {"layout":"vertical"};
 
-function createOrder() {
-    // replace this url with your server
-    return fetch("https://react-paypal-js-storybook.fly.dev/api/paypal/create-order", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        // use the "body" param to optionally pass additional order information
-        // like product ids and quantities
-        body: JSON.stringify({
-            cart: [
+const ButtonWrapper = ({ showSpinner,amount }) => {
+    const [{ isPending }] = usePayPalScriptReducer();
+
+    const onCreateOrder = (data,actions) => {
+        console.log(data)
+        return actions.order.create({
+            purchase_units: [
                 {
-                    sku: "1blwyeo8",
-                    quantity: 2,
+                    amount: {
+                        value: amount,
+                    },
                 },
             ],
-        }),
-    })
-        .then((response) => response.json())
-        .then((order) => {
-            // Your code here after create the order
-            return order.id;
         });
-}
-function onApprove(data) {
-    // replace this url with your server
-    return fetch("https://react-paypal-js-storybook.fly.dev/api/paypal/capture-order", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            orderID: data.orderID,
-        }),
-    })
-        .then((response) => response.json())
-        .then((orderData) => {
-            // Your code here after capture the order
+    }
+    
+    const onApproveOrder = (data,actions) => {
+        return actions.order.capture().then((details) => {
+            const name = details.payer.name.given_name;
+            alert(`Transaction completed by ${name}`);
         });
-}
-
-// Custom component to wrap the PayPalButtons and show loading spinner
-const ButtonWrapper = ({ showSpinner }) => {
-    const [{ isPending }] = usePayPalScriptReducer();
+    }
 
     return (
         <>
@@ -60,8 +38,8 @@ const ButtonWrapper = ({ showSpinner }) => {
                 disabled={false}
                 forceReRender={[style]}
                 fundingSource={undefined}
-                createOrder={createOrder}
-                onApprove={onApprove}
+                createOrder={(data, actions) => onCreateOrder(data, actions)}
+                onApprove={(data, actions) => onApproveOrder(data, actions)}
             />
         </>
     );
@@ -71,7 +49,7 @@ const PayPalBtn = ({amount}) => {
     return (
         <div style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider options={{ clientId: "AbZDN6soec8-E-qH0B7bt4SaX6L7K_TIUJrxC7nRj6nXW05l4kJE6fLIQAV_50yShhxOom6g6Tx_dgLd", components: "buttons", currency: "USD" }}>
-                <ButtonWrapper showSpinner={false} />
+                <ButtonWrapper showSpinner={false} amount={amount}/>
             </PayPalScriptProvider>
         </div>
     );
